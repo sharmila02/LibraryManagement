@@ -44,8 +44,9 @@
       }
     </style>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    
   </head>
-  <body>
+  <body onload="getLocation()">
     <center>
      <section class="Form ">
       <div class="container">
@@ -81,6 +82,17 @@
                     <option value="reader">Individual Building</option>
                     <option value="publisher">Residential Building Floor</option>
                     <option value="staff">Apartment Floor</option>
+                    <option value="staff">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-lg-12  pt-3">
+                  <select class="form-control" name="cat" id="test-cat" required>
+                    <option value="">Institute Category</option>
+                    <option value="reader">School</option>
+                    <option value="publisher">Sachivalay</option>
+                    <option value="staff">E-Seva</option>
                     <option value="staff">Other</option>
                   </select>
                 </div>
@@ -149,6 +161,36 @@
 
               <div class="form-row">
                 <div class="col-lg-12 pt-3">
+                  <p style="padding-top: 2%;" id="loc"></p>
+                  <script>
+                    var x = document.getElementById("loc");
+                    var test_lat=null;
+                    var test_lon=null;
+              function getLocation()
+              {
+              if (navigator.geolocation)
+              {
+              navigator.geolocation.getCurrentPosition(showPosition);
+              }
+              else
+              {
+              x.innerHTML = "Geolocation is not supported by this browser.";
+              }
+              }
+              function showPosition(position)
+              {
+              test_lat=position.coords.latitude;
+              test_lon=position.coords.longitude;
+              
+              
+              x.innerHTML= "Latitude: " + test_lat +"    "+"Longitude: " + test_lon;
+              }
+                  </script>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="col-lg-12 pt-3">
                   <button type="submit" value="Register" class="btn1" id="register">Register</button>
                 </div>
               </div>
@@ -162,32 +204,28 @@
         </div>
       </div>
      </section> 
-
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha3104-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
     <script>
-      var newUser = {'test-size':null,  'test-area':null,'test-role':null,'test-phone_no':null,'test-phone_no':null,'test-instituteName':null,'test-pincode':null,
-      'test-state':null,  'test-city':null,'test-address':null,'test-labs':null,'test-rooms':null,'test-capacity':null,'test-estdyear':null}
+      var newUser = {'size':null,  'area':null,'role':null,'phone_no':null,'phone_no':null,'instituteName':null,'pincode':null,
+      'state':null,  'city':null,'address':null,'labs':null,'rooms':null,'testcapacity':null,'estdyear':null,'lats':null, 'lons':null, 'cat':null}
       $('#test-size').on('keyup', function(){
         $('#error').hide()
-        newUser.phone_no = $(this).val()
+        newUser.size= $(this).val()
         console.log(newUser)
 
     })
 
     $('#test-area').on('keyup', function(){
         $('#error').hide()
-        newUser.phone_no = $(this).val()
+        newUser.area = $(this).val()
         console.log(newUser)
 
     })
 
     $('#test-role').on('keyup', function(){
         $('#error').hide()
-        newUser.phone_no = $(this).val()
+        newUser.role = $(this).val()
         console.log(newUser)
 
     })
@@ -201,66 +239,74 @@
 
     $('#test-instituteName').on('keyup', function(){
         $('#error').hide()
-        newUser.phone_no = $(this).val()
+        newUser.instituteName = $(this).val()
         console.log(newUser)
 
     })
 
     $('#test-pincode').on('keyup', function(){
         $('#error').hide()
-        newUser.phone_no = $(this).val()
+        newUser.pincode = $(this).val()
         console.log(newUser)
 
     })
 
     $('#test-state').on('keyup', function(){
         $('#error').hide()
-        newUser.phone_no = $(this).val()
+        newUser.state= $(this).val()
         console.log(newUser)
 
     })
 
     $('#test-city').on('keyup', function(){
         $('#error').hide()
-        newUser.phone_no = $(this).val()
+        newUser.city = $(this).val()
         console.log(newUser)
 
     })
 
     $('#test-address').on('keyup', function(){
         $('#error').hide()
-        newUser.phone_no = $(this).val()
+        newUser.address= $(this).val()
         console.log(newUser)
 
     })
 
     $('#test-labs').on('keyup', function(){
         $('#error').hide()
-        newUser.phone_no = $(this).val()
+        newUser.labs = $(this).val()
         console.log(newUser)
 
     })
 
     $('#test-rooms').on('keyup', function(){
         $('#error').hide()
-        newUser.phone_no = $(this).val()
+        newUser.rooms = $(this).val()
         console.log(newUser)
 
     })
 
     $('#test-capacity').on('keyup', function(){
         $('#error').hide()
-        newUser.phone_no = $(this).val()
+        newUser.capacity= $(this).val()
         console.log(newUser)
 
     })
 
     $('#test-estdyear').on('keyup', function(){
         $('#error').hide()
-        newUser.phone_no = $(this).val()
+        newUser.estdyear = $(this).val()
         console.log(newUser)
 
     })
+    $('#test-cat').on('keyup', function(){
+        $('#error').hide()
+        newUser.cat = $(this).val()
+        console.log(newUser)
+
+    })
+    newUser.lats=test_lat;
+    newUser.lons=test_lon;
 
       $('#register').on('click', function(){
         createUser()
